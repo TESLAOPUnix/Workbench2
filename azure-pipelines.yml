@@ -22,7 +22,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'dockerhub-workbench-connection'
-        repository: 'kendralabs/workbench'
+        containerRegistry: 'workbench'
+        repository: 'workbench'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
