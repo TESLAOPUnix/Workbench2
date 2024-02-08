@@ -1,0 +1,43 @@
+name: Trigger auto deployment for container-workbench
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ dev ]
+    paths:
+    - 'dockerfile/**'
+    - '.github/workflows/container-workbench-AutoDeployTrigger-857c9424-178d-4798-8548-9ebc4d842202.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.CONTAINERWORKBENCH_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}/dockerfile 
+          registryUrl: workbenchazureregistry.azurecr.io
+          registryUsername: ${{ secrets.CONTAINERWORKBENCH_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CONTAINERWORKBENCH_REGISTRY_PASSWORD }}
+          containerAppName: container-workbench
+          resourceGroup: Container-App-Resource-group
+          imageToBuild: workbenchazureregistry.azurecr.io/workbench:${{ github.sha }}
+          
+            
+
+     
+
