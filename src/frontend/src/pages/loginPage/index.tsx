@@ -13,6 +13,7 @@ import {
   inputHandlerEventType,
   loginInputStateType,
 } from "../../types/components";
+import logo from "../../assets/fintricitylogo.png";
 
 export default function LoginPage(): JSX.Element {
   const [inputState, setInputState] =
