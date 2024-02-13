@@ -165,7 +165,7 @@ export default function StorePage(): JSX.Element {
   return (
     <PageLayout
       betaIcon
-      title="Langflow Store"
+      title="KENDRA LABS WORKBENCH Store"
       description="Search flows and components from the community."
       button={
         <>
